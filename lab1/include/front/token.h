@@ -20,43 +20,43 @@ namespace frontend {
 
 // enumerate for Token type
 enum class TokenType{
-    IDENFR,     // identifier	
-    INTLTR,		// int literal
+    IDENFR,         // identifier	
+    INTLTR,		    // int literal
     FLOATLTR,		// float literal
     CONSTTK,		// const
-    VOIDTK,		// void
-    INTTK,		// int
+    VOIDTK,		    // void
+    INTTK,		    // int
     FLOATTK,		// float
-    IFTK,		// if
-    ELSETK,		// else
+    IFTK,		    // if
+    ELSETK,		    // else
     WHILETK,		// while
     CONTINUETK,		// continue
     BREAKTK,		// break
     RETURNTK,		// return
-    PLUS,		// +
-    MINU,		// -
-    MULT,		// *
-    DIV,		// /
-    MOD,      // %
-    LSS,		// <
-    GTR,		// >
-    COLON,		// :
-    ASSIGN,		// =
-    SEMICN,		// ;
-    COMMA,		// ,
+    PLUS,		    // +
+    MINU,		    // -
+    MULT,		    // *
+    DIV,		    // slash -> /
+    MOD,            // %
+    LSS,		    // <
+    GTR,		    // >
+    COLON,		    // :
+    ASSIGN,		    // =
+    SEMICN,		    // ;
+    COMMA,		    // ,
     LPARENT,		// (
     RPARENT,		// )
-    LBRACK,		// [
-    RBRACK,		// ]
-    LBRACE,		// {
-    RBRACE,		// }
-    NOT,		// !
-    LEQ,		// <=
-    GEQ,		// >=
-    EQL,		// ==
-    NEQ,		// !=
-    AND,        // &&
-    OR,         // ||
+    LBRACK,		    // [
+    RBRACK,		    // ]
+    LBRACE,		    // {
+    RBRACE,		    // }
+    NOT,		    // !
+    LEQ,		    // <=
+    GEQ,		    // >=
+    EQL,		    // ==
+    NEQ,		    // !=
+    AND,            // &&
+    OR,             // ||
 };
 std::string toString(TokenType);
 
@@ -65,8 +65,11 @@ struct Token {
     std::string value;
 };
 
+namespace assist {
+    TokenType get_keyword_type(const std::string& str);
+    TokenType get_op_type(const std::string& str);
+} // namespace frontend, Yunming@2025.5.1
 
-} // namespace frontend
-
+}
 
 #endif

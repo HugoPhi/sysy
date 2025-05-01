@@ -43,6 +43,7 @@ int main(int argc, char** argv) {
         return 0;
     }
     
+#ifdef DEBUG_WITH_AST
     frontend::Parser parser(tk_stream);
     frontend::CompUnit* node = parser.get_abstract_syntax_tree();
 
@@ -54,6 +55,7 @@ int main(int argc, char** argv) {
         output_file << writer.write(json_output);
         return 0;
     }
+#endif
 
    // compiler <src_filename> -s2 -o <output_filename>
     if(step == "-s2") {

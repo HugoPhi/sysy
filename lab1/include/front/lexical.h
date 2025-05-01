@@ -35,7 +35,8 @@ enum class State {
     Ident,              // a keyword or identifier, like 'int' 'a0' 'else' ...
     IntLiteral,         // int literal, like '1' '1900', only in decimal
     FloatLiteral,       // float literal, like '0.1'
-    op                  // operators and '{', '[', '(', ',' ...
+    op,                 // operators and '{', '[', '(', ',' ...
+    // op_first_char       // =, <, >, ... waiting for next, Additional State for dul-op. Yunming@2025.5.1
 };
 std::string toString(State);
  
@@ -71,9 +72,13 @@ struct DFA {
      */
     void reset();
 
+    char lookahead=0;  // look forward char. Yunming@2025.5.1
+    bool flush(Token& buf);  // flush. Yunming@2025.5.1
+
 private:
     State cur_state;    // record current state of the DFA
     std::string cur_str;    // record input characters
+    Token create_token() const;  // create and return a token. Yunming@2025.5.1
 };
 
 // definition of Scanner

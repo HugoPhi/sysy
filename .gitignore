@@ -10,3 +10,9 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 CMakeUserPresets.json
+build
+.vscode
+lab1/bin
+lab1/build
+lab1/test/__pycache__
+lab1/test/log.txt
