@@ -68,6 +68,7 @@ struct Token {
 namespace assist {
     TokenType get_keyword_type(const std::string& str);
     TokenType get_op_type(const std::string& str);
+    bool is_double_char_op(const std::string& s);
 } // namespace frontend, Yunming@2025.5.1
 
 }

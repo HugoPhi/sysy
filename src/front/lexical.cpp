@@ -76,6 +76,13 @@ frontend::TokenType frontend::assist::get_op_type(const std::string& str) {
     return it->second;
 }
 
+bool frontend::assist::is_double_char_op(const std::string& s) {
+    static const std::set<std::string> double_ops = {
+        "==", "!=", "<=", ">=", "&&", "||"
+    };
+    return double_ops.count(s);
+}
+
 /**
  * DFA Impl
  */
@@ -116,12 +123,12 @@ bool frontend::DFA::next(char input, Token& buf) {
             } else if(!isspace(input)) {
                 cur_state = State::op;
                 cur_str += input;
-                token_generated = true;
+                // token_generated = true;
             }
             break;
 
         case State::Ident:
-            if(!isalnum(input)) {
+            if(!isalnum(input) && input != '_') {
                 token_generated = true;
                 lookahead = input; // 回退字符
             } else {
@@ -133,7 +140,7 @@ bool frontend::DFA::next(char input, Token& buf) {
             if(input == '.') {
                 cur_state = State::FloatLiteral;
                 cur_str += input;
-            } else if(!isdigit(input)) {
+            } else if(!isdigit(input) && input != 'x' && input != 'b') {
                 token_generated = true;
                 lookahead = input;
             } else {
@@ -151,8 +158,18 @@ bool frontend::DFA::next(char input, Token& buf) {
             break;
 
         case State::op:
-            token_generated = true;
-            lookahead = input;
+            // token_generated = true;
+            // lookahead = input;
+            std::string possible_op = cur_str + input;
+            if (frontend::assist::is_double_char_op(possible_op)) {
+                // 组成有效双字符操作符
+                cur_str = possible_op;
+                token_generated = true;
+            } else {
+                // 无法组成双字符操作符，生成单字符Token并缓存当前输入
+                lookahead = input;
+                token_generated = true;
+            }
             break;
     }
 
@@ -169,7 +186,9 @@ bool frontend::DFA::next(char input, Token& buf) {
     return false;
 }
 
-
+/**
+ * Generate token from cur_state & cur_str
+ */
 frontend::Token frontend::DFA::create_token() const {
     Token tk;
     tk.value = cur_str;
@@ -216,7 +235,7 @@ enum class FilterState {  // Filter out comment, Yunming@2025.5.1
     MAYBE_END_BLOCK
 };
 
-std::string filter_comments(std::istream& input) {  // // Filter out comment, Yunming@2025.5.1
+std::string filter_comments(std::istream& input) {  // Filter out comment, Yunming@2025.5.1
     std::string filtered;
     FilterState state = FilterState::NORMAL;
     char c;
