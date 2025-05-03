@@ -49,6 +49,43 @@ struct Parser {
      * @param node: current parsing node 
      */
     void log(AstNode* node);
+
+    /**
+     * parsers, Yunming@2025.5.2
+     */
+    bool parseCompUnit(CompUnit* root);
+    bool parseDecl(Decl* root);
+    bool parseFuncDef(FuncDef* root);
+    bool parseConstDecl(ConstDecl* root);
+    bool parseBType(BType* root);
+    bool parseConstDef(ConstDef* root);
+    bool parseConstInitVal(ConstInitVal* root);
+    bool parseVarDecl(VarDecl* root);
+    bool parseVarDef(VarDef* root);
+    bool parseInitVal(InitVal* root);
+    bool parseFuncType(FuncType* root);
+    bool parseFuncFParam(FuncFParam* root);
+    bool parseFuncFParams(FuncFParams* root);
+    bool parseBlock(Block* root);
+    bool parseBlockItem(BlockItem* root);
+    bool parseStmt(Stmt* root);
+    bool parseExp(Exp* root);
+    bool parseCond(Cond* root);
+    bool parseLVal(LVal* root);
+    bool parseNumber(Number* root);
+    bool parsePrimaryExp(PrimaryExp* root);
+    bool parseUnaryExp(UnaryExp* root);
+    bool parseUnaryOp(UnaryOp* root);
+    bool parseFuncRParams(FuncRParams* root);
+    bool parseMulExp(MulExp* root);
+    bool parseAddExp(AddExp* root);
+    bool parseRelExp(RelExp* root);
+    bool parseEqExp(EqExp* root);
+    bool parseLAndExp(LAndExp* root);
+    bool parseLOrExp(LOrExp* root);
+    bool parseConstExp(ConstExp* root);
+
+    Term *parseTerm(AstNode *root, TokenType tk_type);  // return the ptr of the Term node, due to the Macro 'PARSE_TOKEN'
 };
 
 } // namespace frontend

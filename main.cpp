@@ -44,6 +44,9 @@ int main(int argc, char** argv) {
     }
     
 #ifdef DEBUG_WITH_AST
+    for(const auto& tk: tk_stream){
+        std::cout << frontend::toString(tk.type) << "\t" << tk.value << std::endl;
+    }
     frontend::Parser parser(tk_stream);
     frontend::CompUnit* node = parser.get_abstract_syntax_tree();
 

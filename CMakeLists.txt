@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS   "-g")                     # 调试信息
 set(CMAKE_CXX_FLAGS   "-Wall")                  # 开启所有警告
 # debug flags
-# add_definitions(-DDEBUG_WITH_AST)
+add_definitions(-DDEBUG_WITH_AST)
 # add_definitions(-DDEBUG_DFA)
 # add_definitions(-DDEBUG_SCANNER)
-# add_definitions(-DDEBUG_PARSER)
+add_definitions(-DDEBUG_PARSER)
 
 # output settings
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)

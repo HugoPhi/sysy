@@ -123,7 +123,6 @@ bool frontend::DFA::next(char input, Token& buf) {
             } else if(!isspace(input)) {
                 cur_state = State::op;
                 cur_str += input;
-                // token_generated = true;
             }
             break;
 
