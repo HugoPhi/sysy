@@ -147,7 +147,6 @@ struct BType: AstNode {
 
 struct ConstDef: AstNode{
     std::string arr_name;
-
     /**
      * @brief constructor
      */

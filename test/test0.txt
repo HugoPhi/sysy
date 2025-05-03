@@ -1,0 +1,125 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/tibless/Documents/Code/TODO/sysy/build
+[ 11%] Building CXX object CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o
+[ 22%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libjsoncpp.a
+[ 22%] Built target jsoncpp
+[ 33%] Building CXX object CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o
+[ 44%] Building CXX object CMakeFiles/Front.dir/src/front/lexical.cpp.o
+[ 55%] Building CXX object CMakeFiles/Front.dir/src/front/syntax.cpp.o
+[ 66%] Building CXX object CMakeFiles/Front.dir/src/front/token.cpp.o
+[ 77%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libFront.a
+[ 77%] Built target Front
+[ 88%] Building CXX object CMakeFiles/compiler.dir/main.cpp.o
+[100%] Linking CXX executable /home/tibless/Documents/Code/TODO/sysy/bin/compiler
+[100%] Built target compiler
+------------ build_compiler ------------
+------------  run_compiler  ------------
+03_arr_defn2.sy {'retval': 0}
+36_op_priority2.sy {'retval': 0}
+06_const_var_defn2.sy {'retval': 0}
+11_add2.sy {'retval': 0}
+14_subc.sy {'retval': 0}
+08_const_array_defn.sy {'retval': 0}
+26_while_test1.sy {'retval': 0}
+22_if_test3.sy {'retval': 0}
+31_while_if_test1.sy {'retval': 0}
+40_unary_op.sy {'retval': 0}
+10_var_defn_func.sy {'retval': 0}
+07_const_var_defn3.sy {'retval': 0}
+12_addc.sy {'retval': 0}
+15_mul.sy {'retval': 0}
+42_empty_stmt.sy {'retval': 0}
+18_divc.sy {'retval': 0}
+30_continue.sy {'retval': 0}
+04_arr_defn3.sy {'retval': 0}
+25_while_if.sy {'retval': 0}
+37_op_priority3.sy {'retval': 0}
+01_var_defn2.sy {'retval': 0}
+27_while_test2.sy {'retval': 0}
+23_if_test4.sy {'retval': 0}
+29_break.sy {'retval': 0}
+13_sub2.sy {'retval': 0}
+45_comment1.sy {'retval': 0}
+00_main.sy {'retval': 0}
+17_div.sy {'retval': 0}
+41_unary_op2.sy {'retval': 0}
+09_func_defn.sy {'retval': 0}
+35_op_priority1.sy {'retval': 0}
+02_var_defn3.sy {'retval': 0}
+33_while_if_test3.sy {'retval': 0}
+21_if_test2.sy {'retval': 0}
+16_mulc.sy {'retval': 0}
+32_while_if_test2.sy {'retval': 0}
+20_rem.sy {'retval': 0}
+43_logi_assign.sy {'retval': 0}
+34_arr_expr_len.sy {'retval': 0}
+48_assign_complex_expr.sy {'retval': 0}
+79_var_name.sy {'retval': 0}
+38_op_priority4.sy {'retval': 0}
+55_sort_test1.sy {'retval': 0}
+39_op_priority5.sy {'retval': 0}
+49_if_complex_expr.sy {'retval': 0}
+66_exgcd.sy {'retval': 0}
+28_while_test3.sy {'retval': 0}
+------------ score_compiler ------------
+30_continue.tk {'retval': 0}
+12_addc.tk {'retval': 0}
+04_arr_defn3.tk {'retval': 0}
+01_var_defn2.tk {'retval': 0}
+22_if_test3.tk {'retval': 0}
+15_mul.tk {'retval': 0}
+40_unary_op.tk {'retval': 0}
+13_sub2.tk {'retval': 0}
+02_var_defn3.tk {'retval': 0}
+37_op_priority3.tk {'retval': 0}
+20_rem.tk {'retval': 0}
+21_if_test2.tk {'retval': 0}
+11_add2.tk {'retval': 0}
+23_if_test4.tk {'retval': 0}
+00_main.tk {'retval': 0}
+41_unary_op2.tk {'retval': 0}
+29_break.tk {'retval': 0}
+10_var_defn_func.tk {'retval': 0}
+26_while_test1.tk {'retval': 0}
+08_const_array_defn.tk {'retval': 0}
+06_const_var_defn2.tk {'retval': 0}
+35_op_priority1.tk {'retval': 0}
+27_while_test2.tk {'retval': 0}
+18_divc.tk {'retval': 0}
+03_arr_defn2.tk {'retval': 0}
+25_while_if.tk {'retval': 0}
+07_const_var_defn3.tk {'retval': 0}
+31_while_if_test1.tk {'retval': 0}
+14_subc.tk {'retval': 0}
+32_while_if_test2.tk {'retval': 0}
+45_comment1.tk {'retval': 0}
+42_empty_stmt.tk {'retval': 0}
+16_mulc.tk {'retval': 0}
+09_func_defn.tk {'retval': 0}
+36_op_priority2.tk {'retval': 0}
+33_while_if_test3.tk {'retval': 0}
+17_div.tk {'retval': 0}
+49_if_complex_expr.tk {'retval': 0}
+55_sort_test1.tk {'retval': 0}
+79_var_name.tk {'retval': 0}
+66_exgcd.tk {'retval': 0}
+34_arr_expr_len.tk {'retval': 0}
+43_logi_assign.tk {'retval': 0}
+28_while_test3.tk {'retval': 0}
+48_assign_complex_expr.tk {'retval': 0}
+39_op_priority5.tk {'retval': 0}
+38_op_priority4.tk {'retval': 0}
+score: 47 / 47
