@@ -75,3 +75,5 @@ int main(int argc, char** argv) {
     // should not reach here, invaild commad
     return -1;
 }
+
+#include "ir/ir.h"
