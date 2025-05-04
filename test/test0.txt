@@ -13,16 +13,17 @@
 -- Configuring done (0.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: /home/tibless/Documents/Code/TODO/sysy/build
-[ 11%] Building CXX object CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o
-[ 22%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libjsoncpp.a
-[ 22%] Built target jsoncpp
-[ 33%] Building CXX object CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o
-[ 44%] Building CXX object CMakeFiles/Front.dir/src/front/lexical.cpp.o
-[ 55%] Building CXX object CMakeFiles/Front.dir/src/front/syntax.cpp.o
-[ 66%] Building CXX object CMakeFiles/Front.dir/src/front/token.cpp.o
-[ 77%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libFront.a
-[ 77%] Built target Front
-[ 88%] Building CXX object CMakeFiles/compiler.dir/main.cpp.o
+[ 10%] Building CXX object CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o
+[ 20%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libjsoncpp.a
+[ 20%] Built target jsoncpp
+[ 30%] Building CXX object CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o
+[ 40%] Building CXX object CMakeFiles/Front.dir/src/front/lexical.cpp.o
+[ 50%] Building CXX object CMakeFiles/Front.dir/src/front/semantic.cpp.o
+[ 60%] Building CXX object CMakeFiles/Front.dir/src/front/syntax.cpp.o
+[ 70%] Building CXX object CMakeFiles/Front.dir/src/front/token.cpp.o
+[ 80%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libFront.a
+[ 80%] Built target Front
+[ 90%] Building CXX object CMakeFiles/compiler.dir/main.cpp.o
 [100%] Linking CXX executable /home/tibless/Documents/Code/TODO/sysy/bin/compiler
 [100%] Built target compiler
 ------------ build_compiler ------------
@@ -65,14 +66,25 @@
 32_while_if_test2.sy {'retval': 0}
 20_rem.sy {'retval': 0}
 43_logi_assign.sy {'retval': 0}
+51_short_circuit3.sy {'retval': 0}
+62_percolation.sy {'retval': 0}
+64_calculator.sy {'retval': 0}
+73_int_io.sy {'retval': 0}
 34_arr_expr_len.sy {'retval': 0}
 48_assign_complex_expr.sy {'retval': 0}
 79_var_name.sy {'retval': 0}
+89_many_globals.sy {'retval': 0}
+47_hex_oct_add.sy {'retval': 0}
 38_op_priority4.sy {'retval': 0}
 55_sort_test1.sy {'retval': 0}
+50_short_circuit.sy {'retval': 0}
 39_op_priority5.sy {'retval': 0}
+70_dijkstra.sy {'retval': 0}
+52_scope.sy {'retval': 0}
+78_side_effect.sy {'retval': 0}
 49_if_complex_expr.sy {'retval': 0}
 66_exgcd.sy {'retval': 0}
+95_float.sy {'retval': 0}
 28_while_test3.sy {'retval': 0}
 ------------ score_compiler ------------
 30_continue.tk {'retval': 0}
@@ -112,14 +124,25 @@
 36_op_priority2.tk {'retval': 0}
 33_while_if_test3.tk {'retval': 0}
 17_div.tk {'retval': 0}
+95_float.tk {'retval': 0}
 49_if_complex_expr.tk {'retval': 0}
 55_sort_test1.tk {'retval': 0}
 79_var_name.tk {'retval': 0}
+47_hex_oct_add.tk {'retval': 0}
+89_many_globals.tk {'retval': 0}
 66_exgcd.tk {'retval': 0}
+52_scope.tk {'retval': 0}
 34_arr_expr_len.tk {'retval': 0}
+73_int_io.tk {'retval': 0}
+64_calculator.tk {'retval': 0}
+78_side_effect.tk {'retval': 0}
 43_logi_assign.tk {'retval': 0}
+70_dijkstra.tk {'retval': 0}
 28_while_test3.tk {'retval': 0}
 48_assign_complex_expr.tk {'retval': 0}
 39_op_priority5.tk {'retval': 0}
+62_percolation.tk {'retval': 0}
+51_short_circuit3.tk {'retval': 0}
 38_op_priority4.tk {'retval': 0}
-score: 47 / 47
+50_short_circuit.tk {'retval': 0}
+score: 58 / 58
