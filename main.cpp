@@ -77,7 +77,7 @@ int main(int argc, char** argv) {
 
         auto executor = ir::Executor(&program);
         std::cout << program.draw() << "--------------------------- Executor::run() ---------------------------" << std::endl;
-        fprintf(ir::reopen_output_file, "\n%d", (uint8_t)executor.run());
+        fprintf(ir::reopen_output_file, "\n%d\n", (uint8_t)executor.run());
     }
     return 0;
 }

@@ -107,6 +107,8 @@ struct Analyzer {
     // reject copy & assignment
     Analyzer(const Analyzer&) = delete;
     Analyzer& operator=(const Analyzer&) = delete;
+
+    // analysis functions
 };
 
 } // namespace frontend
