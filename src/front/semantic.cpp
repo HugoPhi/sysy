@@ -37,6 +37,7 @@ void frontend::SymbolTable::add_scope(Block* node) {
     scope_stack.push_back(new_scope);
     return;
 }
+
 void frontend::SymbolTable::exit_scope() {
     if (scope_stack.empty()) {
         assert(0 && "exit scope error: no scope to exit");
@@ -113,7 +114,7 @@ ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
     symbol_table.functions["global"] = func_ptr;
     buffer.addFunction(*func_ptr);  // add global function to program
 
-    ANALYSIS(root, CompUnit, 0);  // Vals & Functions will added in this function.
+    ANALYSIS(comp, CompUnit, 0);  // Vals & Functions will added in this function.
 }
 
 void frontend::Analyzer::analysisCompUnit(CompUnit* root, ir::Program& program) {

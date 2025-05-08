@@ -48,3 +48,26 @@ add_executable(compiler main.cpp)
 # link
 # every lib should be linked with [compiler]
 target_link_libraries(compiler Tools-x86-linux Front IR-x86-linux jsoncpp)
+
+
+# ---------------------
+# 自动扫描 case 目录下的所有 .cpp 文件，并为每个文件创建一个可执行目标
+file(GLOB CASE_FILES "ir_case/case*.cpp")
+
+foreach(CASE_FILE IN LISTS CASE_FILES)
+    get_filename_component(TARGET_NAME ${CASE_FILE} NAME_WE)
+
+    add_executable(${TARGET_NAME} ${CASE_FILE})
+
+    # 设置输出路径与主程序一致
+    set_target_properties(${TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+
+    # 添加头文件包含目录
+    target_include_directories(${TARGET_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+    # 链接需要的库（如果 case 文件需要用到这些库）
+    target_link_libraries(${TARGET_NAME} Front IR-x86-linux Tools-x86-linux jsoncpp)
+
+    # 添加自定义目标，依赖于编译的可执行文件
+    add_custom_target(task${TARGET_NAME} DEPENDS ${TARGET_NAME})
+endforeach()
