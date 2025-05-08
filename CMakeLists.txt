@@ -65,9 +65,9 @@ foreach(CASE_FILE IN LISTS CASE_FILES)
     # 添加头文件包含目录
     target_include_directories(${TARGET_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
-    # 链接需要的库（如果 case 文件需要用到这些库）
-    target_link_libraries(${TARGET_NAME} Front IR-x86-linux Tools-x86-linux jsoncpp)
+    # 链接需要的库
+    target_link_libraries(${TARGET_NAME} IR-x86-linux Tools-x86-linux jsoncpp)
 
-    # 添加自定义目标，依赖于编译的可执行文件
-    add_custom_target(task${TARGET_NAME} DEPENDS ${TARGET_NAME})
+    # 添加 Front 的源码进来，方便调试
+    target_sources(${TARGET_NAME} PRIVATE ${FRONT_SRC})
 endforeach()

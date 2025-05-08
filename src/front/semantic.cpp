@@ -103,75 +103,77 @@ frontend::Analyzer::Analyzer(): tmp_cnt(0), symbol_table() {
     }
 }
 
-ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
-    ir::Program buffer;
-    for (auto& func : symbol_table.functions) {
-        buffer.addFunction(*(func.second));  // add lib functions to program
-    }
+ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {}
+
+// ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
+//     ir::Program buffer;
+//     for (auto& func : symbol_table.functions) {
+//         buffer.addFunction(*(func.second));  // add lib functions to program
+//     }
     
-    // add function: global
-    auto func_ptr = new Function("global", Type::null);
-    symbol_table.functions["global"] = func_ptr;
-    buffer.addFunction(*func_ptr);  // add global function to program
+//     // add function: global
+//     auto func_ptr = new Function("global", Type::null);
+//     symbol_table.functions["global"] = func_ptr;
+//     buffer.addFunction(*func_ptr);  // add global function to program
 
-    ANALYSIS(comp, CompUnit, 0);  // Vals & Functions will added in this function.
-}
+//     ANALYSIS(comp, CompUnit, 0);  // Vals & Functions will added in this function.
+// }
 
-void frontend::Analyzer::analysisCompUnit(CompUnit* root, ir::Program& program) {
-    // add global variables
-    for (int i = 0; i < root->children.size(); ++i) {
-        auto child = root->children[i];
-        if (child->type == NodeType::DECL) {
-            std::vector<ir::Instruction*> buffer;
-            ANALYSIS(decl, Decl, i);
-            for (auto& inst : buffer) {
-                program.functions['global'].addInst(inst);  // add to global function
-                symbol_table.functions["global"]->addInst(inst);  // add to symbol table
-                g_init_inst.push_back(inst);  // add to global init instructions
-            }
-        } else if (child->type == NodeType::FUNCDEF) {
-            ir::Function buffer;
-            ANALYSIS(funcdef, FuncDef, i);
-            program.addFunction(buffer);  // add to program
-            symbol_table.functions[buffer.name] = new ir::Function(buffer);  // add to symbol table
-        } else {
-            assert(0 && "analysisCompUnit error: unknown child type");
-        }
-    }
-}
+// void frontend::Analyzer::analysisCompUnit(CompUnit* root, ir::Program& program) {
+//     // add global variables
+//     for (int i = 0; i < root->children.size(); ++i) {
+//         auto child = root->children[i];
+//         if (child->type == NodeType::DECL) {
+//             std::vector<ir::Instruction*> buffer;
+//             ANALYSIS(decl, Decl, i);
+//             for (auto& inst : buffer) {
+//                 program.functions['global'].addInst(inst);  // add to global function
+//                 symbol_table.functions["global"]->addInst(inst);  // add to symbol table
+//                 g_init_inst.push_back(inst);  // add to global init instructions
+//             }
+//         } else if (child->type == NodeType::FUNCDEF) {
+//             ir::Function buffer;
+//             ANALYSIS(funcdef, FuncDef, i);
+//             program.addFunction(buffer);  // add to program
+//             symbol_table.functions[buffer.name] = new ir::Function(buffer);  // add to symbol table
+//         } else {
+//             assert(0 && "analysisCompUnit error: unknown child type");
+//         }
+//     }
+// }
 
-// Decl -> ConstDecl | VarDecl
-void frontend::Analyzer::analysisDecl(Decl* root, std::vector<ir::Instruction*>& buffer) {
-    for (int i = 0; i < root->children.size(); ++i) {
-        auto child = root->children[i];
-        if (child->type == NodeType::CONSTDECL) {
-            ANALYSIS(constdecl, ConstDecl, i);
-        } else if (child->type == NodeType::VARDECL) {
-            ANALYSIS(vardecl, VarDecl, i);
-        } else {
-            assert(0 && "analysisDecl error: unknown child type");
-        }
-    }
-    return;
-}
+// // Decl -> ConstDecl | VarDecl
+// void frontend::Analyzer::analysisDecl(Decl* root, std::vector<ir::Instruction*>& buffer) {
+//     for (int i = 0; i < root->children.size(); ++i) {
+//         auto child = root->children[i];
+//         if (child->type == NodeType::CONSTDECL) {
+//             ANALYSIS(constdecl, ConstDecl, i);
+//         } else if (child->type == NodeType::VARDECL) {
+//             ANALYSIS(vardecl, VarDecl, i);
+//         } else {
+//             assert(0 && "analysisDecl error: unknown child type");
+//         }
+//     }
+//     return;
+// }
 
-// ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
-void frontend::Analyzer::analysisConstDecl(ConstDecl* root, std::vector<ir::Instruction*>& buffer) {
-    GET_CHILD_PTR(btype, BType, 0);
-    auto type = dynamic_cast<Term*>(btype->children[0])->token.type;  // type: int/float
-    // ir::Type ir_type = (type == TokenType::INTTK) ? ir::Type::Int : ir::Type::Float;
+// // ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
+// void frontend::Analyzer::analysisConstDecl(ConstDecl* root, std::vector<ir::Instruction*>& buffer) {
+//     GET_CHILD_PTR(btype, BType, 0);
+//     auto type = dynamic_cast<Term*>(btype->children[0])->token.type;  // type: int/float
+//     // ir::Type ir_type = (type == TokenType::INTTK) ? ir::Type::Int : ir::Type::Float;
 
-    for (int i = 2; i < root->children.size(); ++i) {
-        auto child = root->children[i];
-        if (child->type == NodeType::CONSTDEF) {
-            ANALYSIS(constdef, ConstDef, i);
-            constdef->arr_name = symbol_table.get_scoped_name(constdef->arr_name);  // add scope infomation to name
-            i++; // pass ',' or ';'
-        } else {
-            assert(0 && "analysisConstDecl error: unknown child type");
-        }
-    }
-    return;
-}
+//     for (int i = 2; i < root->children.size(); ++i) {
+//         auto child = root->children[i];
+//         if (child->type == NodeType::CONSTDEF) {
+//             ANALYSIS(constdef, ConstDef, i);
+//             constdef->arr_name = symbol_table.get_scoped_name(constdef->arr_name);  // add scope infomation to name
+//             i++; // pass ',' or ';'
+//         } else {
+//             assert(0 && "analysisConstDecl error: unknown child type");
+//         }
+//     }
+//     return;
+// }
 
-// ConstDef -> IDENFR [ '[' ConstExp ']' ] '=' ConstInitVal
+// // ConstDef -> IDENFR [ '[' ConstExp ']' ] '=' ConstInitVal

@@ -109,12 +109,12 @@ struct Analyzer {
     Analyzer& operator=(const Analyzer&) = delete;
 
     // analysis functions
-    void analysisCompUnit(CompUnit*, ir::Program&);
-    void analysisDecl(Decl*, std::vector<ir::Instruction*>&);
-    void analysisFuncDef(FuncDef*, ir::Function&);
-    void analysisVarDecl(VarDecl*, std::vector<ir::Instruction*>&);
-    void analysisConstDecl(ConstDecl*, std::vector<ir::Instruction*>&);
-    void analysisConstDef(ConstDef*, std::vector<ir::Instruction*>&);
+    // void analysisCompUnit(CompUnit*, ir::Program&);
+    // void analysisDecl(Decl*, std::vector<ir::Instruction*>&);
+    // void analysisFuncDef(FuncDef*, ir::Function&);
+    // void analysisVarDecl(VarDecl*, std::vector<ir::Instruction*>&);
+    // void analysisConstDecl(ConstDecl*, std::vector<ir::Instruction*>&);
+    // void analysisConstDef(ConstDef*, std::vector<ir::Instruction*>&);
 };
 
 } // namespace frontend
