@@ -47,7 +47,7 @@ add_executable(compiler main.cpp)
 
 # link
 # every lib should be linked with [compiler]
-target_link_libraries(compiler Tools-x86-linux Front IR-x86-linux jsoncpp)
+target_link_libraries(compiler Tools-arm-mac Front IR-arm-mac jsoncpp)
 
 
 # ---------------------
@@ -66,7 +66,7 @@ foreach(CASE_FILE IN LISTS CASE_FILES)
     target_include_directories(${TARGET_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
     # 链接需要的库
-    target_link_libraries(${TARGET_NAME} IR-x86-linux Tools-x86-linux jsoncpp)
+    target_link_libraries(${TARGET_NAME} IR-arm-mac Tools-arm-mac jsoncpp)
 
     # 添加 Front 的源码进来，方便调试
     target_sources(${TARGET_NAME} PRIVATE ${FRONT_SRC})
