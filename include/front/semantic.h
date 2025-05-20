@@ -51,7 +51,7 @@ namespace frontend
     {
         vector<ScopeInfo> scope_stack;              // 一张符号表中可以存储多个作用域，因为作用域可以嵌套。scope_stack大小为1时表示在全局作用域
         map<std::string, ir::Function *> functions; // 函数名称到对应函数的映射
-        int block_cnt = 0;                          // 记录当前作用域序号（虽然作用域i结束后会被弹出scope_stack，但作用域名称中的编号是只增不减的）
+        int scope_cnt = 0;                          // 记录当前作用域序号（虽然作用域i结束后会被弹出scope_stack，但作用域名称中的编号是只增不减的）
 
         void add_scope();
         void exit_scope();
