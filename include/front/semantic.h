@@ -81,10 +81,9 @@ namespace frontend
 
         ir::Program get_ir_program(CompUnit *);
 
-        // 辅助函数，分析表达式的结构，返回中间生成的IR指令
         ir::Type analyzeBType(BType *);
         string analyzeIdent(Term *);
-
+        
         void analyzeCompUnit(CompUnit *);
         vector<ir::Instruction *> analyzeDecl(Decl *);
         vector<ir::Instruction *> analyzeConstDecl(ConstDecl *);
@@ -114,20 +113,19 @@ namespace frontend
          */
         vector<ir::Instruction *> analyzeExp(Exp *);
         vector<ir::Instruction *> analyzeAddExp(AddExp *);
-        vector<ir::Instruction *> analyzeConstExp(ConstExp *); // 常数计算不生成指令，因此返回空数组
+        vector<ir::Instruction *> analyzeConstExp(ConstExp *);
         vector<ir::Instruction *> analyzeMulExp(MulExp *);
         vector<ir::Instruction *> analyzeUnaryExp(UnaryExp *);
-        vector<ir::Instruction *> analyzeFuncRParams(FuncRParams *, vector<ir::Operand> &, vector<ir::Operand> &); // 分析函数返回参数列表还需要返回IR指令，也需要函数传入参数列表
+        vector<ir::Instruction *> analyzeFuncRParams(FuncRParams *, vector<ir::Operand> &, vector<ir::Operand> &);
         vector<ir::Instruction *> analyzePrimaryExp(PrimaryExp *);
         vector<ir::Instruction *> analyzeLVal(LVal *);
-        vector<ir::Instruction *> analyzeNumber(Number *); // 常数计算不生成指令，因此返回空数组
+        vector<ir::Instruction *> analyzeNumber(Number *);
         vector<ir::Instruction *> analyzeCond(Cond *);
         vector<ir::Instruction *> analyzeLOrExp(LOrExp *);
         vector<ir::Instruction *> analyzeLAndExp(LAndExp *);
         vector<ir::Instruction *> analyzeEqExp(EqExp *);
         vector<ir::Instruction *> analyzeRelExp(RelExp *);
 
-        // 辅助函数，在计算表达式的值的时候进行类型转换
         void IntLiteral2Int(AstNode *, AstNode *, frontend::NodeType, vector<ir::Instruction *> &);
         void IntLiteral2FloatLiteral(AstNode *, AstNode *, frontend::NodeType);
         void IntLiteral2Float(AstNode *, AstNode *, frontend::NodeType, vector<ir::Instruction *> &);

@@ -2225,13 +2225,12 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeLAndExp(LAndExp *root)
     }
 }
 
-// EqExp -> RelExp { ('==' | '!=') RelExp }
 vector<ir::Instruction *> frontend::Analyzer::analyzeEqExp(EqExp *root)
 {
     vector<Instruction *> res;
 
     for (int i = 0; i < root->children.size(); i += 2)
-    { // RelExp { ('==' | '!=') RelExp }  <==>  {RelExp, '==' | '!='|None }
+    {
         RelExp *relexp = dynamic_cast<RelExp *>(root->children[i]);
         vector<Instruction *> insts = analyzeRelExp(relexp);
         res.insert(res.end(), insts.begin(), insts.end());
@@ -2241,14 +2240,11 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeEqExp(EqExp *root)
     root->t = relexp0->t;
     root->v = relexp0->v;
 
-    // RelExp
     if (root->children.size() == 1)
-        // if only one RelExp, you can return now
         return res;
 
-    // { ('==' | '!=') RelExp }
     for (int i = 2; i < root->children.size(); i += 2)
-    { // unify the type of RelExp
+    {
         RelExp *relexp = dynamic_cast<RelExp *>(root->children[i]);
         Term *op_term = dynamic_cast<Term *>(root->children[i - 1]);
         Type target_type = root->t;
@@ -2261,22 +2257,95 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeEqExp(EqExp *root)
                 target_type = ir::Type::Int;
             else if (relexp->t == ir::Type::FloatLiteral && target_type == ir::Type::IntLiteral)
                 target_type = ir::Type::FloatLiteral;
-            else if ((relexp->t == ir::Type::FloatLiteral && target_type == ir::Type::Int) || (target_type == ir::Type::FloatLiteral && relexp->t == ir::Type::Int)) // 提升没有顺序
+            else if ((relexp->t == ir::Type::FloatLiteral && target_type == ir::Type::Int) || (target_type == ir::Type::FloatLiteral && relexp->t == ir::Type::Int))
                 target_type = ir::Type::Float;
 
             if (target_type == Type::Int)
-            { // IntLiteral -> Int
-                IntLiteral2Int(root, relexp, frontend::NodeType::RELEXP, res);
+            {
+                if (relexp->t == Type::IntLiteral)
+                {
+                    string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(relexp->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
+                    res.push_back(cvtInst);
+                    relexp->v = tmp_intcvt_flag;
+                    relexp->t = Type::Int;
+                }
+                if (root->t == Type::IntLiteral)
+                {
+                    string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(root->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
+                    res.push_back(cvtInst);
+                    root->v = tmp_intcvt_flag;
+                    root->t = Type::Int;
+                }
             }
             else if (target_type == Type::FloatLiteral)
-            { // IntLiteral -> FloatLiteral
-                IntLiteral2FloatLiteral(root, relexp, frontend::NodeType::RELEXP);
+            {
+                if (relexp->t == Type::IntLiteral)
+                {
+                    float val = std::stoi(relexp->v);
+                    relexp->v = std::to_string(val);
+                    relexp->t = Type::FloatLiteral;
+                }
+                if (root->t == Type::IntLiteral)
+                {
+                    float val = std::stoi(root->v);
+                    root->v = std::to_string(val);
+                    root->t = Type::FloatLiteral;
+                }
             }
             else if (target_type == Type::Float)
-            { // IntLiteral -> Float, Int -> Float, FloatLiteral -> Float
-                IntLiteral2Float(root, relexp, frontend::NodeType::RELEXP, res);
-                Int2Float(root, relexp, frontend::NodeType::RELEXP, res);
-                FloatLiteral2Float(root, relexp, frontend::NodeType::RELEXP, res);
+            {
+                if (relexp->t == Type::IntLiteral)
+                {
+                    float val = std::stof(relexp->v);
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    relexp->v = tmp_cvt_flag;
+                    relexp->t = Type::Float;
+                }
+                if (relexp->t == Type::Int)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(relexp->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
+                    res.push_back(cvtInst);
+                    relexp->v = tmp_cvt_flag;
+                    relexp->t = Type::Float;
+                }
+                if (root->t == Type::IntLiteral)
+                {
+                    float val = std::stof(root->v);
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    root->v = tmp_cvt_flag;
+                    root->t = Type::Float;
+                }
+                if (root->t == Type::Int)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(root->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
+                    res.push_back(cvtInst);
+                    root->v = tmp_cvt_flag;
+                    root->t = Type::Float;
+                }
+                if (relexp->t == Type::FloatLiteral)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(relexp->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    relexp->v = tmp_cvt_flag;
+                    relexp->t = Type::Float;
+                }
+                if (root->t == Type::FloatLiteral)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(root->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    root->v = tmp_cvt_flag;
+                    root->t = Type::Float;
+                }
             }
         }
 
@@ -2297,7 +2366,6 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeEqExp(EqExp *root)
                 root->v = std::to_string(val1 == val2);
             else if (op_term->token.type == TokenType::NEQ)
                 root->v = std::to_string(val1 != val2);
-
             root->t = Type::IntLiteral;
         }
         else if (target_type == Type::Int)
@@ -2316,20 +2384,18 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeEqExp(EqExp *root)
         {
             string tmp_cal_flag = "__temp_var_" + std::to_string(tmp_cnt++);
             Instruction *inst;
-            if (op_term->token.type == TokenType::LSS)
-                inst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(relexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Float), ir::Operator::feq);
-            else if (op_term->token.type == TokenType::GTR)
-                inst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(relexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Float), ir::Operator::fneq);
-
+            if (op_term->token.type == TokenType::EQL)
+                inst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(relexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::feq);
+            else if (op_term->token.type == TokenType::NEQ)
+                inst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(relexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::fneq);
             res.push_back(inst);
             root->v = tmp_cal_flag;
-            root->t = Type::Float;
+            root->t = Type::Int;
         }
     }
     return res;
 }
 
-// RelExp -> AddExp { ('<' | '>' | '<=' | '>=') AddExp }
 vector<ir::Instruction *> frontend::Analyzer::analyzeRelExp(RelExp *root)
 {
     vector<Instruction *> res;
@@ -2348,7 +2414,6 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeRelExp(RelExp *root)
     if (root->children.size() == 1)
         return res;
 
-    // { ('<' | '>' | '<=' | '>=') AddExp }
     for (int i = 2; i < root->children.size(); i += 2)
     {
         AddExp *addexp = dynamic_cast<AddExp *>(root->children[i]);
@@ -2363,22 +2428,95 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeRelExp(RelExp *root)
                 target_type = ir::Type::Int;
             else if (addexp->t == ir::Type::FloatLiteral && target_type == ir::Type::IntLiteral)
                 target_type = ir::Type::FloatLiteral;
-            else if ((addexp->t == ir::Type::FloatLiteral && target_type == ir::Type::Int) || (target_type == ir::Type::FloatLiteral && addexp->t == ir::Type::Int)) // 提升没有顺序
+            else if ((addexp->t == ir::Type::FloatLiteral && target_type == ir::Type::Int) || (target_type == ir::Type::FloatLiteral && addexp->t == ir::Type::Int))
                 target_type = ir::Type::Float;
 
             if (target_type == Type::Int)
-            { // IntLiteral -> Int
-                IntLiteral2Int(root, addexp, frontend::NodeType::ADDEXP, res);
+            {
+                if (addexp->t == Type::IntLiteral)
+                {
+                    string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(addexp->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
+                    res.push_back(cvtInst);
+                    addexp->v = tmp_intcvt_flag;
+                    addexp->t = Type::Int;
+                }
+                if (root->t == Type::IntLiteral)
+                {
+                    string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(root->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
+                    res.push_back(cvtInst);
+                    root->t = Type::Int;
+                    root->v = tmp_intcvt_flag;
+                }
             }
             else if (target_type == Type::FloatLiteral)
-            { // IntLiteral -> FloatLiteral
-                IntLiteral2FloatLiteral(root, addexp, frontend::NodeType::ADDEXP);
+            {
+                if (addexp->t == Type::IntLiteral)
+                {
+                    float val = std::stoi(addexp->v);
+                    addexp->v = std::to_string(val);
+                    addexp->t = Type::FloatLiteral;
+                }
+                if (root->t == Type::IntLiteral)
+                {
+                    float val = std::stoi(root->v);
+                    root->v = std::to_string(val);
+                    root->t = Type::FloatLiteral;
+                }
             }
             else if (target_type == Type::Float)
-            { // IntLiteral -> Float, Int -> Float, FloatLiteral -> Float
-                IntLiteral2Float(root, addexp, frontend::NodeType::ADDEXP, res);
-                Int2Float(root, addexp, frontend::NodeType::ADDEXP, res);
-                FloatLiteral2Float(root, addexp, frontend::NodeType::ADDEXP, res);
+            {
+                if (addexp->t == Type::IntLiteral)
+                {
+                    float val = std::stof(addexp->v);
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    addexp->v = tmp_cvt_flag;
+                    addexp->t = Type::Float;
+                }
+                if (addexp->t == Type::Int)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(addexp->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
+                    res.push_back(cvtInst);
+                    addexp->v = tmp_cvt_flag;
+                    addexp->t = Type::Float;
+                }
+                if (root->t == Type::IntLiteral)
+                {
+                    float val = std::stof(root->v);
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    root->v = tmp_cvt_flag;
+                    root->t = Type::Float;
+                }
+                if (root->t == Type::Int)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(root->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
+                    res.push_back(cvtInst);
+                    root->v = tmp_cvt_flag;
+                    root->t = Type::Float;
+                }
+                if (addexp->t == Type::FloatLiteral)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(addexp->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    addexp->v = tmp_cvt_flag;
+                    addexp->t = Type::Float;
+                }
+                if (root->t == Type::FloatLiteral)
+                {
+                    string tmp_cvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
+                    Instruction *cvtInst = new Instruction(ir::Operand(root->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_cvt_flag, ir::Type::Float), ir::Operator::fdef);
+                    res.push_back(cvtInst);
+                    root->v = tmp_cvt_flag;
+                    root->t = Type::Float;
+                }
             }
         }
 
@@ -2407,7 +2545,6 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeRelExp(RelExp *root)
                 root->v = std::to_string(val1 <= val2);
             else if (op_term->token.type == TokenType::GEQ)
                 root->v = std::to_string(val1 >= val2);
-
             root->t = Type::IntLiteral;
         }
         else if (target_type == Type::Int)
@@ -2422,7 +2559,6 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeRelExp(RelExp *root)
                 calInst = new Instruction(ir::Operand(root->v, ir::Type::Int), ir::Operand(addexp->v, ir::Type::Int), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::leq);
             else if (op_term->token.type == TokenType::GEQ)
                 calInst = new Instruction(ir::Operand(root->v, ir::Type::Int), ir::Operand(addexp->v, ir::Type::Int), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::geq);
-
             res.push_back(calInst);
             root->v = tmp_cal_flag;
             root->t = Type::Int;
@@ -2432,252 +2568,17 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeRelExp(RelExp *root)
             string tmp_cal_flag = "__temp_var_" + std::to_string(tmp_cnt++);
             Instruction *calInst;
             if (op_term->token.type == TokenType::LSS)
-                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Float), ir::Operator::flss);
+                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::flss);
             else if (op_term->token.type == TokenType::GTR)
-                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Float), ir::Operator::fgtr);
+                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::fgtr);
             else if (op_term->token.type == TokenType::LEQ)
-                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Float), ir::Operator::fleq);
+                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::fleq);
             else if (op_term->token.type == TokenType::GEQ)
-                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Float), ir::Operator::fgeq);
-
+                calInst = new Instruction(ir::Operand(root->v, ir::Type::Float), ir::Operand(addexp->v, ir::Type::Float), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::fgeq);
             res.push_back(calInst);
             root->v = tmp_cal_flag;
-            root->t = Type::Float;
+            root->t = Type::Int;
         }
     }
     return res;
-}
-
-void frontend::Analyzer::IntLiteral2Int(AstNode *root, AstNode *child, frontend::NodeType type, vector<Instruction *> &res)
-{
-    if (type == frontend::NodeType::RELEXP)
-    {
-        EqExp *rt = dynamic_cast<EqExp *>(root);
-        RelExp *chd = dynamic_cast<RelExp *>(child);
-        if (chd->t == Type::IntLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(chd->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Int;
-        }
-        if (rt->t == Type::IntLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(rt->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Int;
-        }
-    }
-    else if (type == frontend::NodeType::ADDEXP)
-    {
-        RelExp *rt = dynamic_cast<RelExp *>(root);
-        AddExp *chd = dynamic_cast<AddExp *>(child);
-        if (chd->t == Type::IntLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(chd->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Int;
-        }
-        if (rt->t == Type::IntLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(rt->v, ir::Type::IntLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Int), ir::Operator::def);
-            res.push_back(cvtInst);
-            rt->t = Type::Int;
-            rt->v = tmp_intcvt_flag;
-        }
-    }
-    return;
-}
-
-void frontend::Analyzer::IntLiteral2FloatLiteral(AstNode *root, AstNode *child, frontend::NodeType type)
-{
-    if (type == frontend::NodeType::RELEXP)
-    {
-        EqExp *rt = dynamic_cast<EqExp *>(root);
-        RelExp *chd = dynamic_cast<RelExp *>(child);
-        if (chd->t == Type::IntLiteral)
-        {
-            float val = std::stoi(chd->v);
-            chd->v = std::to_string(val);
-            chd->t = Type::FloatLiteral;
-        }
-        if (rt->t == Type::IntLiteral)
-        {
-            float val = std::stoi(rt->v);
-            rt->v = std::to_string(val);
-            rt->t = Type::FloatLiteral;
-        }
-    }
-    else if (type == frontend::NodeType::ADDEXP)
-    {
-        RelExp *rt = dynamic_cast<RelExp *>(root);
-        AddExp *chd = dynamic_cast<AddExp *>(child);
-        if (chd->t == Type::IntLiteral)
-        {
-            float val = std::stoi(chd->v);
-            chd->v = std::to_string(val);
-            chd->t = Type::FloatLiteral;
-        }
-        if (rt->t == Type::IntLiteral)
-        {
-            float val = std::stoi(rt->v);
-            rt->v = std::to_string(val);
-            rt->t = Type::FloatLiteral;
-        }
-    }
-    return;
-}
-
-void frontend::Analyzer::IntLiteral2Float(AstNode *root, AstNode *child, frontend::NodeType type, vector<Instruction *> &res)
-{
-    if (type == frontend::NodeType::RELEXP)
-    {
-        EqExp *rt = dynamic_cast<EqExp *>(root);
-        RelExp *chd = dynamic_cast<RelExp *>(child);
-        if (chd->t == Type::IntLiteral)
-        {
-            float val = std::stof(chd->v);
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Float;
-        }
-        if (rt->t == Type::IntLiteral)
-        {
-            float val = std::stof(rt->v);
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Float;
-        }
-    }
-    else if (type == frontend::NodeType::ADDEXP)
-    {
-        RelExp *rt = dynamic_cast<RelExp *>(root);
-        AddExp *chd = dynamic_cast<AddExp *>(child);
-        if (chd->t == Type::IntLiteral)
-        { // IntLiteral -> Float
-            float val = std::stof(chd->v);
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Float;
-        }
-        if (rt->t == Type::IntLiteral)
-        {
-            float val = std::stof(rt->v);
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(std::to_string(val), ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Float;
-        }
-    }
-    return;
-}
-
-void frontend::Analyzer::Int2Float(AstNode *root, AstNode *child, frontend::NodeType type, vector<Instruction *> &res)
-{
-    if (type == frontend::NodeType::RELEXP)
-    {
-        EqExp *rt = dynamic_cast<EqExp *>(root);
-        RelExp *chd = dynamic_cast<RelExp *>(child);
-        if (chd->t == Type::Int)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(chd->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Float;
-        }
-        if (rt->t == Type::Int)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(rt->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Float;
-        }
-    }
-    else if (type == frontend::NodeType::ADDEXP)
-    {
-        RelExp *rt = dynamic_cast<RelExp *>(root);
-        AddExp *chd = dynamic_cast<AddExp *>(child);
-        if (chd->t == Type::Int)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(chd->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Float;
-        }
-        if (rt->t == Type::Int)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(rt->v, ir::Type::Int), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::cvt_i2f);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Float;
-        }
-    }
-
-    return;
-}
-
-void frontend::Analyzer::FloatLiteral2Float(AstNode *root, AstNode *child, frontend::NodeType type, vector<Instruction *> &res)
-{
-    if (type == frontend::NodeType::RELEXP)
-    {
-        EqExp *rt = dynamic_cast<EqExp *>(root);
-        RelExp *chd = dynamic_cast<RelExp *>(child);
-        assert(rt != nullptr && chd != nullptr);
-        if (chd->t == Type::FloatLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(chd->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Float;
-        }
-        if (rt->t == Type::FloatLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(rt->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Float;
-        }
-    }
-    else if (type == frontend::NodeType::ADDEXP)
-    {
-        RelExp *rt = dynamic_cast<RelExp *>(root);
-        AddExp *chd = dynamic_cast<AddExp *>(child);
-        assert(rt != nullptr && chd != nullptr);
-        if (chd->t == Type::FloatLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(chd->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            chd->v = tmp_intcvt_flag;
-            chd->t = Type::Float;
-        }
-        if (rt->t == Type::FloatLiteral)
-        {
-            string tmp_intcvt_flag = "__temp_var_" + std::to_string(tmp_cnt++);
-            Instruction *cvtInst = new Instruction(ir::Operand(rt->v, ir::Type::FloatLiteral), ir::Operand(), ir::Operand(tmp_intcvt_flag, ir::Type::Float), ir::Operator::fdef);
-            res.push_back(cvtInst);
-            rt->v = tmp_intcvt_flag;
-            rt->t = Type::Float;
-        }
-    }
-    return;
 }
