@@ -2191,10 +2191,7 @@ vector<ir::Instruction *> frontend::Analyzer::analyzeLAndExp(LAndExp *root)
              */
             string tmp_cal_flag = GET_NEXT_TEMP_VAR();
 
-            // Instruction *true_goto = ;
             res.push_back(new Instruction(ir::Operand(root->v, root->t), ir::Operand(), ir::Operand("2", Type::IntLiteral), ir::Operator::_goto));
-
-            // Instruction *inst = ;
             Instruction *true_logic_goto = new Instruction(ir::Operand(), ir::Operand(), ir::Operand("2", Type::IntLiteral), ir::Operator::_goto);
             insts.push_back(new Instruction(ir::Operand(root->v, root->t), ir::Operand(landexp->v, landexp->t), ir::Operand(tmp_cal_flag, ir::Type::Int), ir::Operator::_and));
             insts.push_back(true_logic_goto);
