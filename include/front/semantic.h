@@ -125,12 +125,6 @@ namespace frontend
         vector<ir::Instruction *> analyzeLAndExp(LAndExp *);
         vector<ir::Instruction *> analyzeEqExp(EqExp *);
         vector<ir::Instruction *> analyzeRelExp(RelExp *);
-
-        void IntLiteral2Int(AstNode *, AstNode *, frontend::NodeType, vector<ir::Instruction *> &);
-        void IntLiteral2FloatLiteral(AstNode *, AstNode *, frontend::NodeType);
-        void IntLiteral2Float(AstNode *, AstNode *, frontend::NodeType, vector<ir::Instruction *> &);
-        void Int2Float(AstNode *, AstNode *, frontend::NodeType, vector<ir::Instruction *> &);
-        void FloatLiteral2Float(AstNode *, AstNode *, frontend::NodeType, vector<ir::Instruction *> &);
     };
 
 }
