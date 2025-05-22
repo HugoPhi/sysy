@@ -1,12 +1,17 @@
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
-CMakeUserPresets.json
+# IDE folders
+.idea/*
+.vscode/*
+
+# build files
+build/*
+cmake-build-debug/*
+
+# exectable & libs
+bin/*
+
+# script files
+script/*
+
+# test framework
+test/output/*
+test/__pycache__/*
