@@ -142,7 +142,7 @@ bool frontend::DFA::next(char input, Token& buf) {
             if(input == '.') {
                 cur_state = State::FloatLiteral;
                 cur_str += input;
-            } else if(!isdigit(input) && input != 'x' && input != 'b' && input != 'a' && input != 'c' && input != 'd' && input != 'e' && input != 'f') {
+            } else if(!isdigit(input) && input != 'x' && input != 'b' && input != 'a' && input != 'c' && input != 'd' && input != 'e' && input != 'f' && input != '-') {
                 token_generated = true;
                 lookahead = input;
             } else {

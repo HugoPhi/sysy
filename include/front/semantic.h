@@ -126,7 +126,6 @@ namespace frontend
         vector<ir::Instruction *> analyzeEqExp(EqExp *);
         vector<ir::Instruction *> analyzeRelExp(RelExp *);
     };
-
 }
 
 #endif

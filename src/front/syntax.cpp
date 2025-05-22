@@ -21,10 +21,8 @@ Parser::~Parser() {}
 /**
  * Impl for subfunctions of parser
  */
-frontend::Term *Parser::parseTerm(AstNode *root, TokenType tk_type) {
-    auto term = new Term(token_stream[index], root);
-    index++;
-    return term;
+frontend::Term *Parser::parseTerm(AstNode *root, TokenType tk_type) { 
+    return new Term(token_stream[index++], root);
 }
 bool Parser::parseCompUnit(CompUnit *root) {
     // CompUnit -> (Decl | FuncDef) [CompUnit] 
