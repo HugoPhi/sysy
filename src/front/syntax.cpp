@@ -21,16 +21,14 @@ Parser::~Parser() {}
 /**
  * Impl for subfunctions of parser
  */
-frontend::Term *Parser::parseTerm(AstNode *root, TokenType tk_type) {
-    auto term = new Term(token_stream[index], root);
-    index++;
-    return term;
+frontend::Term *Parser::parseTerm(AstNode *root, TokenType tk_type) { 
+    return new Term(token_stream[index++], root);
 }
 bool Parser::parseCompUnit(CompUnit *root) {
     // CompUnit -> (Decl | FuncDef) [CompUnit] 
     log(root);
     if (((token_stream.size() - index) >= 3)
-        && (CUR_TOKEN_IS(CONSTTK) || CUR_TOKEN_IS(INTTK) || CUR_TOKEN_IS(FLOATTK))
+        && (CUR_TOKEN_IS(VOIDTK) || CUR_TOKEN_IS(INTTK) || CUR_TOKEN_IS(FLOATTK))
         && token_stream[index + 1].type == TokenType::IDENFR
         && token_stream[index + 2].type == TokenType::LPARENT) {
         PARSE(funcdef, FuncDef);
