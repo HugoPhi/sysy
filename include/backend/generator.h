@@ -5,6 +5,7 @@
 #include "backend/rv_def.h"
 #include "backend/rv_inst_impl.h"
 
+#include <cstdint>
 #include<map>
 #include<string>
 #include<vector>

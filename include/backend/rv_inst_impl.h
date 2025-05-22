@@ -2,6 +2,7 @@
 #define RV_INST_IMPL_H
 
 #include "backend/rv_def.h"
+#include <cstdint>
 
 namespace rv {
 
