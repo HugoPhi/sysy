@@ -1,0 +1,2 @@
+95_float.sy {'retval': 134, 'err_detail': b"compiler: /home/ubuntu/CQU-Compiler-2022/src/tools/ir_executor.cpp:536: bool ir::Executor::exec_ir(size_t): Assertion `inst->des.type == Type::Float' failed.\nAborted (core dumped)\n"}
+95_float.out {'retval': 1, 'err_detail': b''}

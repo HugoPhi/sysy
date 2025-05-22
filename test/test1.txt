@@ -1,0 +1,108 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/tibless/Documents/Code/TODO/sysy/build
+[  4%] Building CXX object CMakeFiles/jsoncpp.dir/src/third_party/jsoncpp/jsoncpp.cpp.o
+[  8%] Linking CXX static library /home/tibless/Documents/Code/TODO/sysy/bin/libjsoncpp.a
+[  8%] Built target jsoncpp
+[ 12%] Building CXX object CMakeFiles/Front.dir/src/front/abstract_syntax_tree.cpp.o
+[ 16%] Building CXX object CMakeFiles/Front.dir/src/front/lexical.cpp.o
+[ 20%] Building CXX object CMakeFiles/Front.dir/src/front/semantic.cpp.o
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:14:1: warning: multi-line comment [-Wcomment]
+   14 | // #define ANALYSIS(node, type, index)                          \
+      | ^
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:225:23: warning: identifier ‘constinit’ is a keyword in C++20 [-Wc++20-compat]
+  225 |         ConstInitVal *constinit = dynamic_cast<ConstInitVal *>(root->children.back()); // ConstInitVal
+      |                       ^~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘ir::Program frontend::Analyzer::get_ir_program(frontend::CompUnit*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:114:31: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<int>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  114 |             for (int i = 0; i < it->second.dimension.size(); i++)
+      |                             ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeConstDecl(frontend::ConstDecl*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:196:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  196 |     for (int i = 2; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeConstInitVal(frontend::ConstInitVal*, ir::Type, int, std::string)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:329:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  329 |     for (int i = 1; i < root->children.size() - 1; i += 2, cnt += 1)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeVarDecl(frontend::VarDecl*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:383:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  383 |     for (int i = 1; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeInitVal(frontend::InitVal*, ir::Type, int, std::string)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:563:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  563 |     for (int i = 1; i < root->children.size() - 1; i += 2, cnt += 1)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Operand> frontend::Analyzer::analyzeFuncFParams(frontend::FuncFParams*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:749:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+  749 |     for (int i = 0; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeBlockItem(frontend::BlockItem*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:784:28: warning: unused variable ‘_’ [-Wunused-variable]
+  784 |     else if (GET_CHILD_PTR(_, Stmt, 0))
+      |                            ^
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:25:48: note: in definition of macro ‘GET_CHILD_PTR’
+   25 | #define GET_CHILD_PTR(node, type, index) type *node = dynamic_cast<type *>(root->children[index])
+      |                                                ^~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:781:23: warning: unused variable ‘_’ [-Wunused-variable]
+  781 |     if (GET_CHILD_PTR(_, Decl, 0))
+      |                       ^
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:25:48: note: in definition of macro ‘GET_CHILD_PTR’
+   25 | #define GET_CHILD_PTR(node, type, index) type *node = dynamic_cast<type *>(root->children[index])
+      |                                                ^~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeStmt(frontend::Stmt*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:1243:27: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<ir::Instruction*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1243 |         for (int i = 0; i < stmt_insts.size(); i++)
+      |                         ~~^~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeAddExp(frontend::AddExp*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:1317:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1317 |     for (int i = 0; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:1387:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1387 |     for (int i = 2; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeMulExp(frontend::MulExp*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:1503:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1503 |     for (int i = 0; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:1572:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1572 |     for (int i = 2; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeFuncRParams(frontend::FuncRParams*, std::vector<ir::Operand>&, std::vector<ir::Operand>&)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:1783:32: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 1783 |     for (int i = 0, cnt = 0; i < root->children.size(); i += 2, cnt += 1)
+      |                              ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeEqExp(frontend::EqExp*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:2212:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 2212 |     for (int i = 0; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:2225:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 2225 |     for (int i = 2; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp: In member function ‘std::vector<ir::Instruction*> frontend::Analyzer::analyzeRelExp(frontend::RelExp*)’:
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:2364:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 2364 |     for (int i = 0; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:2377:23: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::vector<frontend::AstNode*>::size_type’ {aka ‘long unsigned int’} [-Wsign-compare]
+ 2377 |     for (int i = 2; i < root->children.size(); i += 2)
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~
+/home/tibless/Documents/Code/TODO/sysy/src/front/semantic.cpp:2501:26: warning: unused variable ‘calInst’ [-Wunused-variable]
+ 2501 |             Instruction *calInst;
+      |                          ^~~~~~~
+make[2]: *** [CMakeFiles/Front.dir/build.make:104: CMakeFiles/Front.dir/src/front/semantic.cpp.o] Interrupt
+make[1]: *** [CMakeFiles/Makefile2:117: CMakeFiles/Front.dir/all] Interrupt
+make: *** [Makefile:91: all] Interrupt
+------------ build_compiler ------------
+------------  run_compiler  ------------
