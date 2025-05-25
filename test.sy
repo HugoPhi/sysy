@@ -1,0 +1,13 @@
+const int arr[2][2] = {{13, 2}, {23, 43}};
+
+int main() {
+  int i=0, j=0, sum=0;
+  while (i < 2) {
+    while (j < 2) {
+      sum = sum + arr[i][j];
+      j = j + 1;
+    }
+    i = i + 1;
+  }
+  return sum;
+}

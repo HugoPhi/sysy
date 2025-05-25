@@ -1,0 +1,11 @@
+const int arr[4] = {13, 2, 23, 33};
+
+int main() {
+  int sum = 0, i = 0;
+  while (i < 4) {
+    sum = sum + arr[i];
+    i = i + 1;
+  }
+
+  return sum;
+}

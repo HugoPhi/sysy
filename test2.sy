@@ -1,0 +1,14 @@
+int arr[3][2] = {{10}, {12, 43}};
+
+int main() {
+  int i=0, sum=0;
+  while (i < 3) {
+    int j = 0;
+    while (j < 2) {
+      sum = sum + arr[i][j];
+      j = j + 1;
+    }
+    i = i + 1;
+  }
+  return sum;
+}
