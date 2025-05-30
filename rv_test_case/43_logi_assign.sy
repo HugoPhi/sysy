@@ -1,0 +1,18 @@
+int a;
+int b;
+int foo(int a1, int a2, int a3, int a4, int a5) {
+	return a1 + a2 + a3 + a4 + a5;
+}
+int main()
+{
+	a=4;
+	b=4;
+	int c;
+	if (a==b&&a!=3) {
+		c = 1;
+	}
+	else {
+		c = 0;
+	}
+	return c;
+}

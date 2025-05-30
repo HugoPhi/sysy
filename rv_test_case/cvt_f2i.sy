@@ -1,0 +1,9 @@
+float x = 12.342;
+int main() {
+	float z = x;
+	int y = x;
+
+	float z2 = z;
+	int y2 = z;
+	return 0;
+}

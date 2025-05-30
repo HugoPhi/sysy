@@ -63,7 +63,7 @@ namespace frontend
     // singleton class
     struct Analyzer
     {
-        int tmp_cnt;
+        int tmp_cnt, long_cnt;
         vector<ir::Instruction *> g_init_inst;
         SymbolTable symbol_table;
         ir::Program ir_program;

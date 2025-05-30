@@ -46,15 +46,6 @@ def run_compiler(arg1):
                 if is_windows:
                     cmd = cmd.replace('/','\\')
                 cp = subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.DEVNULL)
-                if oftype == 's':
-                    print("compile s file")
-                    # riscv32-unknown-linux-gnu-gcc -o test.out test.s sylib-riscv-linux.a
-                    # qemu-riscv32.sh test.out 
-                    cmd = ' '.join(["riscv32-unknown-linux-gnu-gcc", "-o", output_dir + fname + ".out", output_dir + fname + "." + oftype, "sylib-riscv-linux.a"])
-                    subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.DEVNULL)
-                    cmd = ' '.join(["qemu-riscv32.sh", output_dir + fname + ".out"])
-                    subprocess.run(cmd, shell=True, stderr=subprocess.PIPE, stdout=subprocess.DEVNULL)
-
                 if cp.returncode != 0:
                     record[src] = {"retval": cp.returncode, "err_detail": cp.stderr}
                 else:

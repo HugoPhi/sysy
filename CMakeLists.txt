@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 project(compiler)
 
 # compile flags
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS   "-g")                     # 调试信息
 set(CMAKE_CXX_FLAGS   "-Wall")                  # 开启所有警告
 # debug flags
@@ -49,4 +49,4 @@ add_executable(compiler main.cpp)
 
 # link
 # every lib should be linked with [compiler]
-target_link_libraries(compiler Backend Tools-x86-linux Front IR-x86-linux jsoncpp)
+target_link_libraries(compiler Backend Front jsoncpp Tools-arm-mac IR-arm-mac)

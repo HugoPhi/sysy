@@ -1,7 +1,7 @@
 #include "front/syntax.h"
 
-#include <iostream>
 #include <cassert>
+#include <iostream>
 
 using frontend::Parser;
 
@@ -21,16 +21,11 @@ Parser::~Parser() {}
 /**
  * Impl for subfunctions of parser
  */
-frontend::Term *Parser::parseTerm(AstNode *root, TokenType tk_type) { 
-    return new Term(token_stream[index++], root);
-}
+frontend::Term *Parser::parseTerm(AstNode *root, TokenType tk_type) { return new Term(token_stream[index++], root); }
 bool Parser::parseCompUnit(CompUnit *root) {
-    // CompUnit -> (Decl | FuncDef) [CompUnit] 
+    // CompUnit -> (Decl | FuncDef) [CompUnit]
     log(root);
-    if (((token_stream.size() - index) >= 3)
-        && (CUR_TOKEN_IS(VOIDTK) || CUR_TOKEN_IS(INTTK) || CUR_TOKEN_IS(FLOATTK))
-        && token_stream[index + 1].type == TokenType::IDENFR
-        && token_stream[index + 2].type == TokenType::LPARENT) {
+    if (((token_stream.size() - index) >= 3) && (CUR_TOKEN_IS(VOIDTK) || CUR_TOKEN_IS(INTTK) || CUR_TOKEN_IS(FLOATTK)) && token_stream[index + 1].type == TokenType::IDENFR && token_stream[index + 2].type == TokenType::LPARENT) {
         PARSE(funcdef, FuncDef);
     } else {
         PARSE(decl, Decl);
@@ -41,7 +36,7 @@ bool Parser::parseCompUnit(CompUnit *root) {
     return true;
 }
 bool Parser::parseDecl(Decl *root) {
-    // Decl -> ConstDecl | VarDecl  
+    // Decl -> ConstDecl | VarDecl
     log(root);
     if (CUR_TOKEN_IS(CONSTTK)) {
         PARSE(constdecl, ConstDecl);
@@ -91,7 +86,7 @@ bool Parser::parseConstDef(ConstDef *root) {
     return true;
 }
 bool Parser::parseConstInitVal(ConstInitVal *root) {
-    // ConstInitVal -> ConstExp | '{' [ ConstInitVal { ',' ConstInitVal } ] '}' 
+    // ConstInitVal -> ConstExp | '{' [ ConstInitVal { ',' ConstInitVal } ] '}'
     log(root);
     if (CUR_TOKEN_IS(LBRACE)) {
         PARSE_TOKEN(LBRACE);
@@ -107,7 +102,7 @@ bool Parser::parseConstInitVal(ConstInitVal *root) {
         }
     } else {
         PARSE(constexp, ConstExp);
-    }  
+    }
     return true;
 }
 bool Parser::parseVarDecl(VarDecl *root) {
@@ -163,13 +158,13 @@ bool Parser::parseInitVal(InitVal *root) {
     return true;
 }
 bool Parser::parseFuncDef(FuncDef *root) {
-    // FuncDef -> FuncType Ident '(' [FuncFParams] ')' Block 
+    // FuncDef -> FuncType Ident '(' [FuncFParams] ')' Block
     log(root);
     PARSE(functype, FuncType);
     PARSE_TOKEN(IDENFR);
     PARSE_TOKEN(LPARENT);
     // no [FuncFParams], FuncType Ident '(' ')' Block
-    if(CUR_TOKEN_IS(RPARENT)) {
+    if (CUR_TOKEN_IS(RPARENT)) {
         PARSE_TOKEN(RPARENT);
     }
     // FuncType Ident '(' FuncFParams ')' Block
@@ -211,7 +206,6 @@ bool Parser::parseFuncFParam(FuncFParam *root) {
         }
     }
     return true;
-    
 }
 bool Parser::parseFuncFParams(FuncFParams *root) {
     // FuncFParams -> FuncFParam { ',' FuncFParam }
@@ -224,7 +218,7 @@ bool Parser::parseFuncFParams(FuncFParams *root) {
     return true;
 }
 bool Parser::parseBlock(Block *root) {
-    // Block -> '{' { BlockItem } '}' 
+    // Block -> '{' { BlockItem } '}'
     log(root);
     PARSE_TOKEN(LBRACE);
     while (!CUR_TOKEN_IS(RBRACE)) {
@@ -235,7 +229,7 @@ bool Parser::parseBlock(Block *root) {
 }
 bool Parser::parseBlockItem(BlockItem *root) {
     /*
-    BlockItem -> Decl | Stmt 
+    BlockItem -> Decl | Stmt
     1. Decl << 'const', 'int', 'float'
     2. Stmt << Ident, '{', 'if', 'while', 'break', 'continue', 'return', '('
     */
@@ -302,16 +296,7 @@ bool Parser::parseStmt(Stmt *root) {
             PARSE_TOKEN(SEMICN);
         }
     } else {
-        if (CUR_TOKEN_IS(PLUS) 
-            || CUR_TOKEN_IS(MINU) 
-            || CUR_TOKEN_IS(NOT) 
-            || CUR_TOKEN_IS(INTLTR) 
-            || CUR_TOKEN_IS(FLOATLTR) 
-            || CUR_TOKEN_IS(LPARENT) 
-            || CUR_TOKEN_IS(SEMICN) 
-            || ((token_stream.size() - index) >= 2
-                && token_stream[index].type == TokenType::IDENFR
-                && token_stream[index + 1].type == TokenType::LPARENT)) {
+        if (CUR_TOKEN_IS(PLUS) || CUR_TOKEN_IS(MINU) || CUR_TOKEN_IS(NOT) || CUR_TOKEN_IS(INTLTR) || CUR_TOKEN_IS(FLOATLTR) || CUR_TOKEN_IS(LPARENT) || CUR_TOKEN_IS(SEMICN) || ((token_stream.size() - index) >= 2 && token_stream[index].type == TokenType::IDENFR && token_stream[index + 1].type == TokenType::LPARENT)) {
             if (CUR_TOKEN_IS(SEMICN)) {
                 PARSE_TOKEN(SEMICN);
             } else {
@@ -419,9 +404,7 @@ bool Parser::parseUnaryExp(UnaryExp *root) {
     if (CUR_TOKEN_IS(PLUS) || CUR_TOKEN_IS(MINU) || CUR_TOKEN_IS(NOT)) {
         PARSE(unaryop, UnaryOp);
         PARSE(unaryexp, UnaryExp);
-    } else if ((token_stream.size() - index) >= 2
-                && token_stream[index].type == TokenType::IDENFR 
-                && token_stream[index + 1].type == TokenType::LPARENT) {
+    } else if ((token_stream.size() - index) >= 2 && token_stream[index].type == TokenType::IDENFR && token_stream[index + 1].type == TokenType::LPARENT) {
         PARSE_TOKEN(IDENFR);
         PARSE_TOKEN(LPARENT);
         if (CUR_TOKEN_IS(RPARENT)) {
@@ -475,7 +458,7 @@ bool Parser::parseMulExp(MulExp *root) {
     return true;
 }
 bool Parser::parseAddExp(AddExp *root) {
-    // AddExp -> MulExp { ('+' | '-') MulExp } 
+    // AddExp -> MulExp { ('+' | '-') MulExp }
     log(root);
     PARSE(mulExp, MulExp);
     while (CUR_TOKEN_IS(PLUS) || CUR_TOKEN_IS(MINU)) {
@@ -490,7 +473,7 @@ bool Parser::parseAddExp(AddExp *root) {
     return true;
 }
 bool Parser::parseRelExp(RelExp *root) {
-    // RelExp -> AddExp { ('<' | '>' | '<=' | '>=') AddExp } 
+    // RelExp -> AddExp { ('<' | '>' | '<=' | '>=') AddExp }
     log(root);
     PARSE(addexp, AddExp);
     while (CUR_TOKEN_IS(LSS) || CUR_TOKEN_IS(GTR) || CUR_TOKEN_IS(LEQ) || CUR_TOKEN_IS(GEQ)) {
@@ -551,7 +534,7 @@ bool Parser::parseConstExp(ConstExp *root) {
     return true;
 }
 
-frontend::CompUnit *Parser::get_abstract_syntax_tree(){
+frontend::CompUnit *Parser::get_abstract_syntax_tree() {
     auto root = new CompUnit();
     parseCompUnit(root);
     return root;
