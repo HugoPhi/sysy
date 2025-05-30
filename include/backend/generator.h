@@ -57,7 +57,7 @@ namespace backend {
          * - ft2-ft11, fs* for LRU strategy: 18
          * - fa0-fa7 for function arguments
          */
-        std::vector<rv::rvREG> ilru = {t[3], t[4], t[5], t[6], s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]};
+        std::vector<rv::rvREG> ilru = {t[4], t[5], t[6], s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]};
         std::vector<rv::rvREG> flru = {ft[2], ft[3], ft[4], ft[5], ft[6], ft[7], ft[8], ft[9], ft[10], ft[11], fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], fs[6], fs[7]};
 
         const ir::Program &program;           // the program to gen
