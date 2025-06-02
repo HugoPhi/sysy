@@ -1,0 +1,12 @@
+25_while_if.s {'retval': 1, 'err_detail': b''}
+40_unary_op.s {'retval': 1, 'err_detail': b''}
+33_while_if_test3.s {'retval': 1, 'err_detail': b''}
+41_unary_op2.s {'retval': 1, 'err_detail': b''}
+09_func_defn.s {'retval': 1, 'err_detail': b''}
+04_arr_defn3.s {'retval': 1, 'err_detail': b''}
+48_assign_complex_expr.s {'retval': 1, 'err_detail': b''}
+34_arr_expr_len.s {'retval': 1, 'err_detail': b''}
+79_var_name.s {'retval': 1, 'err_detail': b''}
+28_while_test3.s {'retval': 1, 'err_detail': b''}
+55_sort_test1.s {'retval': 1, 'err_detail': b''}
+89_many_globals.s {'retval': 1, 'err_detail': b''}

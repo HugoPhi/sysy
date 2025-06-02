@@ -29,7 +29,7 @@ namespace backend {
          * @param[in] size: the space needed(in byte)
          * @return the offset
          */
-        int add_operand(std::string, uint32_t size = 4);
+        int add_operand(std::string, int offset = 0);
     };
 
     struct Generator {
@@ -37,11 +37,12 @@ namespace backend {
         rv::rvREG t[7] = {rv::rvREG::X5, rv::rvREG::X6, rv::rvREG::X7, rv::rvREG::X28, rv::rvREG::X29, rv::rvREG::X30, rv::rvREG::X31};                                                                                    // temporary registers
         rv::rvREG a[8] = {rv::rvREG::X10, rv::rvREG::X11, rv::rvREG::X12, rv::rvREG::X13, rv::rvREG::X14, rv::rvREG::X15, rv::rvREG::X16, rv::rvREG::X17};                                                                 // argument registers
         rv::rvREG s[12] = {rv::rvREG::X8, rv::rvREG::X9, rv::rvREG::X18, rv::rvREG::X19, rv::rvREG::X20, rv::rvREG::X21, rv::rvREG::X22, rv::rvREG::X23, rv::rvREG::X24, rv::rvREG::X25, rv::rvREG::X26, rv::rvREG::X27};  // saved registers
-        rv::rvREG sp = rv::rvREG::X2;                                                                                                                                                                                      // stack pointer
-        rv::rvREG gp = rv::rvREG::X3;                                                                                                                                                                                      // global pointer
-        rv::rvREG tp = rv::rvREG::X4;                                                                                                                                                                                      // thread pointer
-        rv::rvREG ra = rv::rvREG::X1;                                                                                                                                                                                      // return address
-        rv::rvREG zero = rv::rvREG::X0;                                                                                                                                                                                    // hard-wired zero register
+        rv::rvREG sp = rv::rvREG::X2;
+        rv::rvREG fp = rv::rvREG::X8;    // stack pointer
+        rv::rvREG gp = rv::rvREG::X3;    // global pointer
+        rv::rvREG tp = rv::rvREG::X4;    // thread pointer
+        rv::rvREG ra = rv::rvREG::X1;    // return address
+        rv::rvREG zero = rv::rvREG::X0;  // hard-wired zero register
 
         rv::rvREG ft[12] = {rv::rvREG::F0, rv::rvREG::F1, rv::rvREG::F2, rv::rvREG::F3, rv::rvREG::F4, rv::rvREG::F5, rv::rvREG::F6, rv::rvREG::F7, rv::rvREG::F28, rv::rvREG::F29, rv::rvREG::F30, rv::rvREG::F31};        // temporary floating-point registers
         rv::rvREG fs[12] = {rv::rvREG::F8, rv::rvREG::F9, rv::rvREG::F18, rv::rvREG::F19, rv::rvREG::F20, rv::rvREG::F21, rv::rvREG::F22, rv::rvREG::F23, rv::rvREG::F24, rv::rvREG::F25, rv::rvREG::F26, rv::rvREG::F27};  // saved floating-point registers
@@ -49,16 +50,20 @@ namespace backend {
 
         /**
          * Reg Strategy:
-         * - t0, t1, t2 for temporary operations
-         * - t3-t6, s* for LRU strategy: 15
+         * - t0, t1, t2, t3 for temporary operations
+         * - t4-t6, s1-11 for LRU strategy: 15
+         * - s0 for fp
          * - a0-a7 for function arguments
          *
          * - ft0, ft1 for temporary operations
          * - ft2-ft11, fs* for LRU strategy: 18
          * - fa0-fa7 for function arguments
          */
-        std::vector<rv::rvREG> ilru = {t[4], t[5], t[6], s[0], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]};
-        std::vector<rv::rvREG> flru = {ft[2], ft[3], ft[4], ft[5], ft[6], ft[7], ft[8], ft[9], ft[10], ft[11], fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], fs[6], fs[7]};
+        // std::vector<rv::rvREG> ilru = {t[4], t[5], t[6], s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]};
+        // std::vector<rv::rvREG> flru = {ft[2], ft[3], ft[4], ft[5], ft[6], ft[7], ft[8], ft[9], ft[10], ft[11], fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], fs[6], fs[7]};
+        std::vector<rv::rvREG> ilru = {s[1], s[2], s[3], s[4], s[5], s[6], s[7], s[8], s[9], s[10], s[11]};
+        std::vector<rv::rvREG> flru = {fs[0], fs[1], fs[2], fs[3], fs[4], fs[5], fs[6], fs[7]};
+
 
         const ir::Program &program;           // the program to gen
         std::ofstream &fout;                  // output file
@@ -67,31 +72,36 @@ namespace backend {
         Generator(ir::Program &, std::ofstream &);
 
         // stack assist data structures
-        std::vector<std::pair<std::string, rv::rvREG>> var2reg;   // map from variable to register
-        std::vector<std::pair<std::string, rv::rvREG>> var2freg;  // map from variable to floating-point register
-        stackVarMap var2offset;                                   // map from variable to offset in stack
-        std::map<int, std::string> pc2label;                      // map from pc to label
-        int stack_data_size = 0;                                  // size of stack data for arrays, used to calculate the offset
-        int cnt4ll = 0;                                           // local label counter
-        int ir4pc = 0;                                            // pc 4 ir
+        // std::vector<std::pair<std::string, rv::rvREG>> var2reg;   // map from variable to register
+        // std::vector<std::pair<std::string, rv::rvREG>> var2freg;  // map from variable to floating-point register
+        // void read(ir::Operand &op, rv::rvREG reg);
+        // void write(ir::Operand &op, rv::rvREG reg);
+
+        std::set<rv::rvREG> reg_pool;   // set of used registers, used to check if a register is already used
+        std::set<rv::rvREG> freg_pool;  // set of used floating-point registers, used to check if a register is already used
+        void drop_reg(rv::rvREG reg, ir::Operand &op);  // drop a register from the register pool
+
+        stackVarMap var2offset;                   // map from variable to offset in stack
+        std::vector<ir::Operand> var_in_program;  // variables one by one in the program
+        int stack_size = 0;                       // size of stack data for arrays, used to calculate the offset
+
+        std::map<int, std::string> pc2label;  // map from pc to label
+        int cnt4ll = 0;                       // local label counter
+        int ir4pc = 0;                        // pc 4 ir
 
         rv::rvREG get_reg_from_var(ir::Operand &op);
 
-        void realloc_stack_frame(std::set<ir::Operand> &vars);
-        void read(ir::Operand &op, rv::rvREG reg);
-        void write(ir::Operand &op, rv::rvREG reg);
-
-        int get_stack_size() const;
+        void realloc_stack_frame();
 
         // generate wrapper function
         void gen();
         void gen_func(const ir::Function &);
-        void gen_instr(const ir::Instruction &);
+        void gen_instr(const ir::Instruction &, const ir::Function &);
 
         // assist functions
         void draw(std::vector<rv::rv_inst> &, std::ofstream &) const;
         bool is_global(const std::string &name) const;
-        rv::rv_inst make_rv_inst(rv::rvREG rd, rv::rvREG rs1, rv::rvREG rs2, rv::rvOPCODE op, int imm = 0, const std::string &label = "", int stack_size_sign = 0);
+        rv::rv_inst make_rv_inst(rv::rvREG rd, rv::rvREG rs1, rv::rvREG rs2, rv::rvOPCODE op, int imm = 0, const std::string &label = "");
         std::string float2ieee(std::string &fval) const;
 
         // assist generation functions
@@ -130,7 +140,7 @@ namespace backend {
         void gen_cvt_f2i(const ir::Instruction &inst);
 
         // control flow instructions
-        void gen_return(const ir::Instruction &inst);
+        void gen_return(const ir::Instruction &inst, const ir::Function &func);
         void gen_goto(const ir::Instruction &inst);
 
         // function instructions

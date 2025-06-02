@@ -1,0 +1,15 @@
+float float_abs(float x) {
+	if (x < 0) return -x;
+	return x;
+}
+
+int main() {
+	putch(10);
+	putch(10);
+	putch(10);
+	float x = 3.1;
+	float z = float_abs(x);
+	putfloat(z);
+	putch(10);
+	return 0;
+}

@@ -1,0 +1,255 @@
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccev5pTr.o: in function `.L0 ':
+(.text+0x1be): undefined reference to `t_6'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x1ca): undefined reference to `t_8'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x268): undefined reference to `t_11'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x274): undefined reference to `t_13'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccudnN9X.o: in function `.L0 ':
+(.text+0xd6): undefined reference to `.L1'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc4VUDzP.o: in function `.L0 ':
+(.text+0x1e8): undefined reference to `t_4'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x1f4): undefined reference to `t_9'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc5HioGV.o: in function `.L0':
+(.text+0x28a): undefined reference to `t_5'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x296): undefined reference to `t_6'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc5HioGV.o: in function `.L4':
+(.text+0x34e): undefined reference to `t_10'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x35a): undefined reference to `t_11'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc5HioGV.o: in function `.L15':
+(.text+0x550): undefined reference to `t_24'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x55c): undefined reference to `t_25'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8mISMY.o: in function `.L0 ':
+(.text+0x336): undefined reference to `t_14'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x342): undefined reference to `t_17'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cccQkxA0.o: in function `.L0 ':
+(.text+0x9cc): undefined reference to `t_34'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x9d8): undefined reference to `t_39'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xaf4): undefined reference to `t_45'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xb00): undefined reference to `t_50'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xc10): undefined reference to `t_55'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xc1c): undefined reference to `t_59'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xd2e): undefined reference to `t_64'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xd3a): undefined reference to `t_68'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cccQkxA0.o: in function `.L35':
+(.text+0xea8): undefined reference to `t_77'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xeb4): undefined reference to `t_80'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xedc): undefined reference to `t_74'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0xee8): undefined reference to `t_81'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cccQkxA0.o: in function `.L0 ':
+(.text+0x344): undefined reference to `.L4'
+collect2: error: ld returned 1 exit status
+./output/function/95_float.s: Assembler messages:
+./output/function/95_float.s:136: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:141: Error: illegal operands `flt.s f2,f3,f4'
+./output/function/95_float.s:147: Error: illegal operands `fmv.s.x s1,f2'
+./output/function/95_float.s:157: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:253: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:257: Error: illegal operands `fmv.x.s f2,s1'
+./output/function/95_float.s:269: Error: illegal operands `fmv.x.s f2,s1'
+./output/function/95_float.s:288: Error: illegal operands `fmv.x.s f2,s1'
+./output/function/95_float.s:293: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:311: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:418: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:423: Error: illegal operands `flt.s f2,f3,f4'
+./output/function/95_float.s:429: Error: illegal operands `fmv.s.x s1,f2'
+./output/function/95_float.s:867: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:870: Error: illegal operands `fmv.x.s f10,t0'
+./output/function/95_float.s:872: Error: illegal operands `fmv.x.s f11,t0'
+./output/function/95_float.s:882: Error: illegal operands `fmv.x.s f10,t0'
+./output/function/95_float.s:884: Error: illegal operands `fmv.x.s f11,t0'
+./output/function/95_float.s:894: Error: illegal operands `fmv.x.s f10,t0'
+./output/function/95_float.s:896: Error: illegal operands `fmv.x.s f11,t0'
+./output/function/95_float.s:930: Error: illegal operands `fmv.x.s f10,t0'
+./output/function/95_float.s:932: Error: illegal operands `fmv.x.s f11,t0'
+./output/function/95_float.s:973: Error: illegal operands `li f0,1065353216'
+./output/function/95_float.s:974: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:980: Error: illegal operands `li f0,1073741824'
+./output/function/95_float.s:981: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:987: Error: illegal operands `li f0,0'
+./output/function/95_float.s:988: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:994: Error: illegal operands `li f0,0'
+./output/function/95_float.s:995: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1001: Error: illegal operands `li f0,0'
+./output/function/95_float.s:1002: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1008: Error: illegal operands `li f0,0'
+./output/function/95_float.s:1009: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1015: Error: illegal operands `li f0,0'
+./output/function/95_float.s:1016: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1022: Error: illegal operands `li f0,0'
+./output/function/95_float.s:1023: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1029: Error: illegal operands `li f0,0'
+./output/function/95_float.s:1030: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1036: Error: illegal operands `li f0,0'
+./output/function/95_float.s:1037: Error: illegal operands `fsw zero,0(f0)'
+./output/function/95_float.s:1078: Error: illegal operands `fmv.x.s f2,t0'
+./output/function/95_float.s:1101: Error: illegal operands `fmv.s.x s1,f2'
+./output/function/95_float.s:1137: Error: illegal operands `fsw zero,0(f2)'
+./output/function/95_float.s:1149: Error: illegal operands `fmv.s.x s1,f2'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L0':
+(.text+0x4c2): undefined reference to `t_1'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L0 ':
+(.text+0x4ce): undefined reference to `t_2'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x584): undefined reference to `t_8'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L3':
+(.text+0x590): undefined reference to `t_9'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L15':
+(.text+0x728): undefined reference to `s4_i0'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L18':
+(.text+0x734): undefined reference to `s4_i1'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L32':
+(.text+0x88e): undefined reference to `t_38'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x89a): undefined reference to `t_39'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L0 ':
+(.text+0x93a): undefined reference to `t_43'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x946): undefined reference to `t_44'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L44':
+(.text+0xa62): undefined reference to `t_51'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc8iOHD4.o: in function `.L45':
+(.text+0xa6e): undefined reference to `t_52'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccXoF2V9.o: in function `.L0 ':
+(.text+0x10c): undefined reference to `t_1'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x118): undefined reference to `t_3'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccXoF2V9.o: in function `.L7':
+(.text+0x4d4): undefined reference to `t_12'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccXoF2V9.o: in function `.L0 ':
+(.text+0x4e0): undefined reference to `t_14'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc1TpJBl.o: in function `.L4':
+(.text+0x2ba): undefined reference to `t_6'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x2c6): undefined reference to `t_7'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc1TpJBl.o: in function `.L0 ':
+(.text+0x2ee): undefined reference to `t_5'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc1TpJBl.o: in function `.L5':
+(.text+0x2fa): undefined reference to `t_8'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cc1TpJBl.o: in function `.L9':
+(.text+0x40c): undefined reference to `t_17'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x418): undefined reference to `t_22'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccmriwgk.o: in function `.L9':
+(.text+0x24c): undefined reference to `t_12'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccmriwgk.o: in function `.L0 ':
+(.text+0x258): undefined reference to `t_14'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/ccty9BWt.o: in function `exgcd':
+(.text+0x228): undefined reference to `.L1'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cciWYTOt.o: in function `.L0 ':
+(.text+0x130): undefined reference to `t_1'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x13c): undefined reference to `t_3'
+collect2: error: ld returned 1 exit status
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cchfYD5w.o: in function `.L0 ':
+(.text+0x24e): undefined reference to `t_9'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: (.text+0x25a): undefined reference to `t_15'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cchfYD5w.o: in function `.L7':
+(.text+0x414): undefined reference to `t_27'
+/riscv32/lib/gcc/riscv32-unknown-linux-gnu/9.2.0/../../../../riscv32-unknown-linux-gnu/bin/ld: /tmp/cchfYD5w.o: in function `.L0 ':
+(.text+0x420): undefined reference to `t_33'
+collect2: error: ld returned 1 exit status
+>> 03_arr_defn2.s
+03_arr_defn2.s {'retval': 0}
+>> 16_mulc.s
+16_mulc.s {'retval': 0}
+>> 35_op_priority1.s
+35_op_priority1.s {'retval': 0}
+>> 06_const_var_defn2.s
+06_const_var_defn2.s {'retval': 0}
+>> 27_while_test2.s
+27_while_test2.s {'retval': 0}
+>> 17_div.s
+17_div.s {'retval': 0}
+>> 08_const_array_defn.s
+08_const_array_defn.s {'retval': 0}
+>> 11_add2.s
+11_add2.s {'retval': 0}
+>> 25_while_if.s
+25_while_if.s {'retval': 1, 'err_detail': b''}
+>> 26_while_test1.s
+26_while_test1.s {'retval': 0}
+>> 12_addc.s
+12_addc.s {'retval': 0}
+>> 07_const_var_defn3.s
+07_const_var_defn3.s {'retval': 0}
+>> 30_continue.s
+30_continue.s {'retval': 0}
+>> 40_unary_op.s
+40_unary_op.s {'retval': 1, 'err_detail': b''}
+>> 13_sub2.s
+13_sub2.s {'retval': 0}
+>> 22_if_test3.s
+22_if_test3.s {'retval': 0}
+>> 14_subc.s
+14_subc.s {'retval': 0}
+>> 10_var_defn_func.s
+10_var_defn_func.s {'retval': 0}
+>> 02_var_defn3.s
+02_var_defn3.s {'retval': 0}
+>> 18_divc.s
+18_divc.s {'retval': 0}
+>> 00_main.s
+00_main.s {'retval': 0}
+>> 21_if_test2.s
+>> 33_while_if_test3.s
+33_while_if_test3.s {'retval': 1, 'err_detail': b''}
+>> 01_var_defn2.s
+01_var_defn2.s {'retval': 0}
+>> 42_empty_stmt.s
+42_empty_stmt.s {'retval': 0}
+>> 36_op_priority2.s
+36_op_priority2.s {'retval': 0}
+>> 23_if_test4.s
+23_if_test4.s {'retval': 0}
+>> 41_unary_op2.s
+41_unary_op2.s {'retval': 1, 'err_detail': b''}
+>> 09_func_defn.s
+09_func_defn.s {'retval': 1, 'err_detail': b''}
+>> 20_rem.s
+20_rem.s {'retval': 0}
+>> 45_comment1.s
+45_comment1.s {'retval': 0}
+>> 29_break.s
+29_break.s {'retval': 0}
+>> 04_arr_defn3.s
+04_arr_defn3.s {'retval': 1, 'err_detail': b''}
+>> 37_op_priority3.s
+37_op_priority3.s {'retval': 0}
+>> 31_while_if_test1.s
+31_while_if_test1.s {'retval': 0}
+>> 15_mul.s
+15_mul.s {'retval': 0}
+>> 32_while_if_test2.s
+32_while_if_test2.s {'retval': 0}
+>> 52_scope.s
+>> 39_op_priority5.s
+>> 48_assign_complex_expr.s
+48_assign_complex_expr.s {'retval': 1, 'err_detail': b''}
+>> 34_arr_expr_len.s
+34_arr_expr_len.s {'retval': 1, 'err_detail': b''}
+>> 50_short_circuit.s
+>> 70_dijkstra.s
+>> 38_op_priority4.s
+38_op_priority4.s {'retval': 0}
+>> 62_percolation.s
+>> 95_float.s
+>> 51_short_circuit3.s
+>> 79_var_name.s
+79_var_name.s {'retval': 1, 'err_detail': b''}
+>> 28_while_test3.s
+28_while_test3.s {'retval': 1, 'err_detail': b''}
+>> 64_calculator.s
+>> 55_sort_test1.s
+55_sort_test1.s {'retval': 1, 'err_detail': b''}
+>> 78_side_effect.s
+>> 73_int_io.s
+>> 89_many_globals.s
+89_many_globals.s {'retval': 1, 'err_detail': b''}
+>> 47_hex_oct_add.s
+47_hex_oct_add.s {'retval': 0}
+>> 66_exgcd.s
+>> 43_logi_assign.s
+>> 49_if_complex_expr.s
+score: 32 / 58

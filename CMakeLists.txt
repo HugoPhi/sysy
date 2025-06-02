@@ -13,6 +13,8 @@ set(CMAKE_CXX_FLAGS   "-Wall")                  # 开启所有警告
 # output settings
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_C_COMPILER "/usr/bin/x86_64-linux-gnu-gcc-7")
+set(CMAKE_CXX_COMPILER "/usr/bin/x86_64-linux-gnu-g++-7")
 
 
 # include
@@ -49,4 +51,4 @@ add_executable(compiler main.cpp)
 
 # link
 # every lib should be linked with [compiler]
-target_link_libraries(compiler Backend Front jsoncpp Tools-arm-mac IR-arm-mac)
+target_link_libraries(compiler Backend Front jsoncpp Tools-x86-linux IR-x86-linux)
